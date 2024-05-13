@@ -44,7 +44,7 @@ First install all the dependencies
 
 ### `yarn start`
 
-Runs the app in the development mode.\
+Runs the app\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 # Task Management Backend
@@ -81,7 +81,7 @@ Start the backend server:
 
 ### `mvn spring-boot:run`
 
-Runs the server
+Runs the server\
 at [http://localhost:9080](http://localhost:9080) to view it in your browser.
 
 ### Available Endpoints
