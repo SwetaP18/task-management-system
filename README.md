@@ -82,7 +82,7 @@ Start the backend server:
 ### `mvn spring-boot:run`
 
 Runs the server\
-at [http://localhost:9080](http://localhost:9080) to view it in your browser.
+at [http://localhost:9080](http://localhost:9080) to access/consume it from application.
 
 ### Available Endpoints
 
