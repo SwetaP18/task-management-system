@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import AddTask from './components/AddTask';
 import TaskList from './components/TaskList';
@@ -8,21 +8,27 @@ import { ExitToApp } from '@mui/icons-material'; // Importing the logout icon
 
 import './App.css';
 import PageNotFound from './components/PageNotFound';
+import SignupPage from './components/SignupPage';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Set initial login state
+  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("isLoggedIn")); // Seting initial login state
 
   // Function to handle logout
   const handleLogout = () => {
-    // Perform logout actions here, such as clearing session storage or updating state
-    setIsLoggedIn(false); // Update login state
+    setIsLoggedIn(false); 
     localStorage.clear();
-    window.location.href = "/"; // Redirect to login page
+    window.location.href = "/"; 
   };
 
   const ProtectedRoute = ({ element, isLoggedIn, ...rest }) => {
-    return isLoggedIn ? <Route {...rest} element={element} /> : <Navigate to="/" />;
+    return isLoggedIn ? element : <Navigate to="/" />;
   };
+
+  useEffect(() => {
+    let authState = localStorage.getItem("isLoggedIn");
+    setIsLoggedIn(authState);
+    console.log("is Authenticated ========= ",isLoggedIn);
+  }, [isLoggedIn])
 
   return (
     <ThemeProvider theme={theme}>
@@ -32,16 +38,18 @@ function App() {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               Task Manager
             </Typography>
-            <Icon>
+            { isLoggedIn && <Icon>
               <ExitToApp fontSize="large" sx={{ color: 'white', marginRight: '8px' }} />
-            </Icon>
-            <Button color="inherit" onClick={handleLogout}>Logout</Button>
+            </Icon> }
+            { isLoggedIn &&
+             <Button color="inherit" onClick={handleLogout}>Logout</Button>}
           </Toolbar>
         </AppBar>
         <div className='container'>
           <div className='main'>
           <Routes>
             <Route path="/" element={<LoginPage />} />
+            <Route path="/signup" element={<SignupPage />} />
             <Route
               path="/dashboard"
               element={<ProtectedRoute element={<TaskList />} isLoggedIn={isLoggedIn} />}
@@ -50,7 +58,7 @@ function App() {
               path="/new"
               element={<ProtectedRoute element={<AddTask />} isLoggedIn={isLoggedIn} />}
             />
-            {/* Catch-all route for handling incorrect URLs */}
+            {/* Catching all the routes for handling incorrect URLs */}
             <Route path="*" element={<PageNotFound />} />
           </Routes>
 
@@ -73,7 +81,7 @@ const Footer = () => {
   );
 };
 
-// Define custom theme
+// custom theme
 const theme = createTheme({
   palette: {
     primary: {
@@ -83,7 +91,7 @@ const theme = createTheme({
       main: '#dc004e',
     },
     background: {
-      default: '#f5f5f5', // Adjust background color for a soothing appearance
+      default: '#f5f5f5',
     },
   },
 });

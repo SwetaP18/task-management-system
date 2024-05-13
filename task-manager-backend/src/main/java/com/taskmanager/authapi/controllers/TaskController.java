@@ -39,7 +39,6 @@ public class TaskController {
 	// create task rest api
 	@PostMapping("")
 	public ResponseEntity<Task> createTask(@RequestBody Task task) {
-
 		return taskService.createTask(task);
 	}
 	

@@ -16,6 +16,7 @@ const LoginPage = () => {
             const { data } = await TaskService.userLogin({email, password}); 
             console.log(data);
             localStorage.setItem("auth", data.token);
+            localStorage.setItem("isLoggedIn", true);
             window.location.href = '/dashboard'; // Redirect to home page
         } catch (error) {
             console.error('Error fetching tasks:', error);
