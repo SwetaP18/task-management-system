@@ -37,7 +37,6 @@ public class AuthenticationService {
     }
 
     public User signup(RegisterUserDto input) {
-        System.out.print("Service ==============================================> "+input.getEmail());
 
         User user = new User()
             .setFullName(input.getFullName())

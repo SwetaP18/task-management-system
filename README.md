@@ -63,7 +63,7 @@ This project is the backend API for a task management application built with Spr
 ### First setup the database 
 
 - Create a new database with name task_management_system
-- You can configure the DB name and user credentials as required from /resources/application.properties file
+- You can configure the database name and user credentials as required from /resources/application.properties file
 
 Go to the project directory
 
