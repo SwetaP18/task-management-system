@@ -22,6 +22,12 @@ import com.taskmanager.authapi.services.TaskService;
 import org.springframework.data.domain.Page;
 import com.taskmanager.authapi.dtos.PageResponse;
 
+/**
+ * 
+ * @author Sweta Pramanik
+ *
+ */
+
 @RestController
 @RequestMapping("/api/tasks")
 public class TaskController {

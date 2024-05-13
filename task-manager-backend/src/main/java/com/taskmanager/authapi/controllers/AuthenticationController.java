@@ -13,6 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+/**
+ * 
+ * @author Sweta Pramanik
+ *
+ */
+
 @RequestMapping("/api/auth")
 @RestController
 public class AuthenticationController {

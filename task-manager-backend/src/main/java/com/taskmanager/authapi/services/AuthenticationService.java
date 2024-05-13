@@ -16,6 +16,11 @@ import java.util.List;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.http.ResponseEntity;
 
+/**
+ * 
+ * @author Sweta Pramanik
+ *
+ */
 
 @Service
 public class AuthenticationService {

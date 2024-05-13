@@ -12,6 +12,12 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
 
+/**
+ * 
+ * @author Sweta Pramanik
+ *
+ */
+
 @RequestMapping("/api/users")
 @RestController
 public class UserController {
