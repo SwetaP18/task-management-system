@@ -47,6 +47,12 @@ public class TaskService {
 			if (task.getTitle() == null || task.getDescription() == null || task.getAssignedTo() == null) {
 				return ResponseEntity.badRequest().build(); // Returning 400 Bad Request if any required field is missing
 			}
+
+			// Check if the title already exists
+			if (taskRepository.existsByTitle(task.getTitle())) {
+				return ResponseEntity.status(HttpStatus.CONFLICT).build(); // Returning 409 Conflict if the title already exists
+			}
+
 			task.setCreatedAt(LocalDateTime.now());
 			task.setUpdatedAt(LocalDateTime.now());
 			task.setStatus("To-Do");
@@ -82,6 +88,11 @@ public class TaskService {
 			// Checking if any of the fields in taskDetails is null or empty
 			if (taskDetails.getTitle() == null || taskDetails.getDescription() == null || taskDetails.getAssignedTo() == null) {
 				return ResponseEntity.badRequest().build();
+			}
+
+			// Check if the title already exists
+			if (taskRepository.existsByTitle(taskDetails.getTitle())) {
+				return ResponseEntity.status(HttpStatus.CONFLICT).build(); // Returning 409 Conflict if the title already exists
 			}
 
 			// Update the task fields
