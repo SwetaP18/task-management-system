@@ -7,8 +7,7 @@ import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "tasks",
-        uniqueConstraints = {@UniqueConstraint(columnNames = {"title"})})
+@Table(name = "tasks")
 public class Task {
 
     @Id
@@ -17,7 +16,7 @@ public class Task {
 
     @NotBlank
     @Size(max = 255)
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String title;
 
     @NotBlank
@@ -29,7 +28,7 @@ public class Task {
 
     @NotBlank
     @Size(max = 20)
-    @Column(nullable = false, columnDefinition = "VARCHAR(20) DEFAULT 'TODO'")
+    @Column(nullable = false, columnDefinition = "VARCHAR(20) DEFAULT 'To-Do'")
     private String status;
 
     @NotNull
@@ -39,9 +38,13 @@ public class Task {
     @Column(name = "updated_at", nullable = true, columnDefinition = "TIMESTAMP")
     private LocalDateTime updatedAt;
 
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User createdBy; // One-to-One mapping with User entity
+
     public Task() {
         // Default constructor
-        this.status = "TODO"; // Set default value for status
+        this.status = "To-Do"; // Set default value for status
     }
 
     public Task(String title, String description, String assignedTo, String status) {
@@ -108,6 +111,14 @@ public class Task {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public User getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(User createdBy) {
+        this.createdBy = createdBy;
     }
 }
 
