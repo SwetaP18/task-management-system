@@ -9,12 +9,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.taskmanager.authapi.exceptions.ResourceNotFoundException;
 import com.taskmanager.authapi.models.Task;
+import com.taskmanager.authapi.models.User;
 import com.taskmanager.authapi.repository.TaskRepository;
 import com.taskmanager.authapi.dtos.PageResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import java.time.LocalDateTime;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
  * 
@@ -31,7 +36,12 @@ public class TaskService {
 	// get all tasks
 	public ResponseEntity<PageResponse<Task>> getAllTasks(int page, int size) {
 		try {
-			Page<Task> taskPage = taskRepository.findAll(PageRequest.of(page, size));
+			// Extracting the logged-in user's ID from the token
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			User userDetails = (User) authentication.getPrincipal();
+			
+			// Query tasks based on the user's ID
+			Page<Task> taskPage = taskRepository.findByCreatedBy(userDetails, PageRequest.of(page, size));
 			PageResponse<Task> pageResponse = new PageResponse<>(taskPage.getContent(), taskPage.getTotalPages(), taskPage.getTotalElements());
 			return ResponseEntity.ok(pageResponse);
 		} catch (Exception e) {
@@ -43,16 +53,20 @@ public class TaskService {
 	/* Create a new Task */
 	public ResponseEntity<Task> createTask(Task task) {
 		try {
+			// Extracting the logged-in user's ID from the token
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			User userDetails = (User) authentication.getPrincipal();
+
 			// Validate if all required fields are present
 			if (task.getTitle() == null || task.getDescription() == null || task.getAssignedTo() == null) {
 				return ResponseEntity.badRequest().build(); // Returning 400 Bad Request if any required field is missing
 			}
-
-			// Check if the title already exists
-			if (taskRepository.existsByTitle(task.getTitle())) {
+			// Check if the title already exists for the current user detalis
+			if (taskRepository.existsByTitleAndCreatedBy(task.getTitle(), userDetails)) {
 				return ResponseEntity.status(HttpStatus.CONFLICT).build(); // Returning 409 Conflict if the title already exists
 			}
 
+			task.setCreatedBy(userDetails);
 			task.setCreatedAt(LocalDateTime.now());
 			task.setUpdatedAt(LocalDateTime.now());
 			task.setStatus("To-Do");
@@ -88,11 +102,6 @@ public class TaskService {
 			// Checking if any of the fields in taskDetails is null or empty
 			if (taskDetails.getTitle() == null || taskDetails.getDescription() == null || taskDetails.getAssignedTo() == null) {
 				return ResponseEntity.badRequest().build();
-			}
-
-			// Check if the title already exists
-			if (taskRepository.existsByTitle(taskDetails.getTitle())) {
-				return ResponseEntity.status(HttpStatus.CONFLICT).build(); // Returning 409 Conflict if the title already exists
 			}
 
 			// Update the task fields
