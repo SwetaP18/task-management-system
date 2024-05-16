@@ -45,10 +45,15 @@ const TaskList = () => {
     }
   };
 
-  /* First time load */
+  /* On page change */
   useEffect(() => {
     getTaskList(page);
   }, [page]); // Reload tasks when page changes
+  
+  /* First time load */
+  useEffect(() => {
+    getTaskList(1);
+  }, []); 
 
   const handlePageChange = (event, value) => {
     setPage(value);
