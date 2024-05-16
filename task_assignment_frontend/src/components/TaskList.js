@@ -67,7 +67,7 @@ const TaskList = () => {
             <Grid container spacing={2}>
               {tasks.map((task) => (
                 <Grid item key={task.taskId} xs={12} sm={6} md={4}> {/* Show 3 tasks in a row */}
-                  <Task  task={task} getTask={getTaskList}/> {/* Pass getTaskList as a prop */}
+                  <Task task={task} getTask={getTaskList}/> {/* Pass getTaskList as a prop */}
                 </Grid>
               ))}
             </Grid>

@@ -77,17 +77,18 @@ const Task = ({ task, getTask }) => {
     useEffect(() => {
         const fetchUserList = async () => {
             try {
-                const { data } = await TaskService.getUsers(0, 10); // Assuming getUsers() method is available in TaskService
-                setUserList(data); // Assuming the user data is an array of objects with 'id' and 'name' properties
+                const { data } = await TaskService.getUsers(0, 10);
+                setUserList(data);
             } catch (error) {
                 console.error('Error fetching user list:', error);
             }
         };
         fetchUserList();
-    }, []); // Empty dependency array ensures that this effect runs only once, when the component mounts
+    }, []); 
 
     return (
         <Paper elevation={3} className='task-item'>
+            {/* Need to remove */}
             {/* <ListItem>
                 <Grid container spacing={2} alignItems="center">
                     <Grid item xs={12} sm={6} md={8}>

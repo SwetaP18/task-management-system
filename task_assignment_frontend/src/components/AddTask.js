@@ -13,7 +13,7 @@ const AddTask = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const { data } = await TaskService.getUsers(0, 10); // Assuming getUsers() method is available in TaskService
+        const { data } = await TaskService.getUsers(0, 10);
         setUsers(data);
       } catch (error) {
         console.error('Error fetching users:', error);
