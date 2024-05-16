@@ -1,4 +1,4 @@
-package com.taskmanager.authapi.dtos;
+package com.taskmanager.authapi.responses;
 
 import java.util.List;
 

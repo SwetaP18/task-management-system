@@ -11,7 +11,7 @@ import com.taskmanager.authapi.exceptions.ResourceNotFoundException;
 import com.taskmanager.authapi.models.Task;
 import com.taskmanager.authapi.models.User;
 import com.taskmanager.authapi.repository.TaskRepository;
-import com.taskmanager.authapi.dtos.PageResponse;
+import com.taskmanager.authapi.responses.PageResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;

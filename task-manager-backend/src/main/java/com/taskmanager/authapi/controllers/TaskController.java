@@ -20,7 +20,7 @@ import com.taskmanager.authapi.exceptions.ResourceNotFoundException;
 import com.taskmanager.authapi.models.Task;
 import com.taskmanager.authapi.services.TaskService;
 import org.springframework.data.domain.Page;
-import com.taskmanager.authapi.dtos.PageResponse;
+import com.taskmanager.authapi.responses.PageResponse;
 
 /**
  * 
