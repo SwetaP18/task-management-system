@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ListItem, ListItemIcon, ListItemText, Typography, Button, Paper, Grid, CircularProgress, Dialog, DialogTitle, DialogContent, DialogActions, Chip } from '@mui/material';
+import { ListItem, ListItemIcon, ListItemText, Typography, Button, Paper, Grid, CircularProgress, Dialog, DialogTitle, DialogContent, DialogActions, Chip, Card, CardActions, CardContent } from '@mui/material';
 import { Delete, Description, Update, Visibility, AccessTime, Person, CheckCircle } from '@mui/icons-material';
 import TaskService from '../lib/interceptor';
 import DeleteConfirmationModal from './modals/DeleteConfirmationModal';
@@ -88,7 +88,7 @@ const Task = ({ task, getTask }) => {
 
     return (
         <Paper elevation={3} className='task-item'>
-            <ListItem>
+            {/* <ListItem>
                 <Grid container spacing={2} alignItems="center">
                     <Grid item xs={12} sm={6} md={8}>
                         <ListItemIcon>
@@ -102,14 +102,35 @@ const Task = ({ task, getTask }) => {
                     </Grid>
                     <Grid item xs={12} sm={6} md={4}>
                         <Grid container justifyContent="flex-end" alignItems="center" spacing={1}>
-                            {/* Buttons */}
                             <Button onClick={handleDelete} color="error" startIcon={<Delete />} disabled={loading}>Delete</Button>
                             <Button onClick={handleOpenDetailsModal} startIcon={<Visibility />} disabled={loading}>View</Button>
                             <Button onClick={handleUpdate} color="primary" startIcon={<Update />} disabled={loading}>Update</Button>
                         </Grid>
                     </Grid>
                 </Grid>
-            </ListItem>
+            </ListItem> */}
+            <Card>
+                <CardContent>
+                    <Grid container spacing={1} alignItems="center">
+                        <Grid item>
+                            <Description />
+                        </Grid>
+                        <Grid item xs={10}>
+                            <Typography variant="h6">{task.title}</Typography>
+                        </Grid>
+                    </Grid>
+                    <Typography variant="body2" color="textSecondary">
+                        {formatDate(task.createdAt)}
+                    </Typography>
+                    <Typography variant="body1" color="textSecondary">{task.description}</Typography>
+                    <Typography variant="body2" color="textSecondary">Assigned To: {task.assignedTo}</Typography>
+                </CardContent>
+                <CardActions>
+                    <Button xs={12} onClick={handleOpenDetailsModal} startIcon={<Visibility />} disabled={loading}>View</Button>
+                    <Button onClick={handleUpdate} color="primary" startIcon={<Update />} disabled={loading}>Update</Button>
+                    <Button onClick={handleDelete} color="error" startIcon={<Delete />} disabled={loading}>Delete</Button>
+                </CardActions>
+            </Card>
             {/* Delete confirmation modal */}
             <DeleteConfirmationModal 
                 open={showConfirmation} 
