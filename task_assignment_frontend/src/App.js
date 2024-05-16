@@ -22,7 +22,8 @@ function App() {
   };
 
   // Function to open logout confirmation dialog
-  const handleOpenLogoutDialog = () => {
+  const handleOpenLogoutDialog = (e) => {
+    e.preventDefault();
     setOpenLogoutDialog(true);
   };
 
@@ -53,7 +54,7 @@ function App() {
               <ExitToApp fontSize="large" sx={{ color: 'white', marginRight: '8px' }} />
             </Icon>}
             {isLoggedIn &&
-              <Button color="inherit" onClick={handleOpenLogoutDialog}>Logout</Button>}
+              <Button color="inherit" onClick={(e) => handleOpenLogoutDialog(e)}>Logout</Button>}
           </Toolbar>
         </AppBar>
         <div className='container'>

@@ -6,6 +6,7 @@ import TaskService from '../lib/interceptor';
 const LoginPage = () => {
     const [email, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState(null); // State for error message
 
     const handleLogin = async (e) => {
         e.preventDefault(); // Prevent form submission
@@ -20,6 +21,11 @@ const LoginPage = () => {
             window.location.href = '/dashboard'; // Redirect to home page
         } catch (error) {
             console.error('Error fetching tasks:', error);
+            // Set error message received from backend
+            setError(error.response?.data?.message || 'An error occurred during login.');
+            setTimeout(() => {
+                setError(''); // Set error message
+            }, 2000)
         }
     };
 
@@ -31,6 +37,11 @@ const LoginPage = () => {
                         Login
                     </Typography>
                 </Box>
+                {error && (
+                    <Typography variant="body2" color="error" marginBottom={2}>
+                        {error}
+                    </Typography>
+                )}
                 <form onSubmit={handleLogin}>
                     <Grid container spacing={2} marginBottom={2}>
                         <Grid item xs={12}>
@@ -59,15 +70,14 @@ const LoginPage = () => {
                             />
                         </Grid>
                     </Grid>
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            color="primary"
-                        >
-                            Login
-                        </Button>
-                    
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                    >
+                        Login
+                    </Button>
                 </form>
                 <Grid container justify="flex-end">
                     <Grid item>

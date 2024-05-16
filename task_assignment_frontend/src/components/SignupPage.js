@@ -8,6 +8,7 @@ const SignupPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [openDialog, setOpenDialog] = useState(false); // State for dialog visibility
+    const [error, setError] = useState(null); // State for error message
 
     const handleSignup = async (e) => {
         e.preventDefault(); // Preventing form submission
@@ -20,6 +21,11 @@ const SignupPage = () => {
             setOpenDialog(true); // Open dialog on successful signup
         } catch (error) {
             console.error('Error signing up:', error);
+            setError('Error signing up. Please try again.');
+            setTimeout(() => {
+                setError(''); // Set error message
+            }, 2000)
+            
         }
     };
 
@@ -36,6 +42,7 @@ const SignupPage = () => {
                         Sign Up
                     </Typography>
                 </Box>
+                {error && <Typography color="error" marginBottom={2}>{error}</Typography>} {/* Display error message */}
                 <form onSubmit={handleSignup}>
                     <Grid container spacing={2} marginBottom={2}>
                         <Grid item xs={12}>
