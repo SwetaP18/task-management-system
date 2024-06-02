@@ -12,11 +12,13 @@ import SignupPage from './components/SignupPage';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("isLoggedIn")); // Seting initial login state
+  const [tokenData, setTokenData] = useState(JSON.parse(atob(localStorage.getItem("auth").split('.')[1]).toString())); // Seting loggedin user state
   const [openLogoutDialog, setOpenLogoutDialog] = useState(false); // State for logout confirmation dialog
 
   // Function to handle logout
   const handleLogout = () => {
     setIsLoggedIn(false);
+    setTokenData({});
     localStorage.clear();
     window.location.href = "/";
   };
@@ -37,10 +39,9 @@ function App() {
   };
 
   useEffect(() => {
-    let authState = localStorage.getItem("isLoggedIn");
-    setIsLoggedIn(authState);
     console.log("is Authenticated ========= ", isLoggedIn);
-  }, [isLoggedIn])
+    console.log("Decoded token ========= ", tokenData);
+  }, [isLoggedIn, tokenData])
 
   return (
     <ThemeProvider theme={theme}>
@@ -50,6 +51,10 @@ function App() {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               Task Manager
             </Typography>
+
+            {isLoggedIn && <Typography variant="h6" sx={{ marginRight: '8px' }}>
+              {tokenData.username}
+            </Typography>}
             {isLoggedIn && <Icon>
               <ExitToApp fontSize="large" sx={{ color: 'white', marginRight: '8px' }} />
             </Icon>}
