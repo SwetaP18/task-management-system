@@ -1,7 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { OutlinedInput, FormControl, InputLabel, Button, Box, Dialog, DialogTitle, DialogContent, DialogActions, Typography, MenuItem, Select } from '@mui/material';
+import { OutlinedInput, FormControl, InputLabel, Button, Box, Dialog, DialogTitle, DialogContent, DialogActions, Typography, MenuItem, Select, createTheme, ThemeProvider } from '@mui/material';
 import { Link } from 'react-router-dom';
 import TaskService from '../lib/interceptor';
+import BottomNav from './BottomNav';
+
+// Define custom theme
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#1976d2',
+    },
+    secondary: {
+      main: '#dc004e',
+    },
+    background: {
+      default: '#f5f5f5', // Adjust background color for a soothing appearance
+    },
+  },
+});
 
 const AddTask = () => {
   const [task, setTask] = useState({});
@@ -55,51 +71,76 @@ const AddTask = () => {
   };
 
   return (
-    <Box sx={{ maxWidth: '100%' }}>
-      <FormControl fullWidth sx={{ my: 1 }}>
-        <InputLabel sx={{ color: '#000' }}>Title</InputLabel>
-        <OutlinedInput
-          onChange={handleOnChange}
-          name='title'
-          label="title"
-          sx={{ color: '#000' }}
-        />
-      </FormControl>
-      <FormControl fullWidth sx={{ my: 1 }}>
-        <InputLabel sx={{ color: '#000' }}>Description</InputLabel>
-        <OutlinedInput
-          onChange={handleOnChange}
-          name='description'
-          label="description"
-          sx={{ color: '#000' }}
-        />
-      </FormControl>
-      <FormControl fullWidth sx={{ my: 1 }}>
-        <InputLabel sx={{ color: '#000' }}>Assigned To</InputLabel>
-        <Select
-          value={selectedUser}
-          onChange={handleUserChange}
-          label="Assigned To"
-          sx={{ color: '#000' }}
+    <ThemeProvider theme={theme}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '80vh',
+        }}
+      >
+        <Typography variant="h5" sx={{ color: 'white', fontWeight: 'bold' }}>
+              Add New Task
+        </Typography>
+        <Box
+          sx={{
+            width: '100%',
+            maxWidth: '500px',
+            p: 3,
+            boxShadow: 3,
+            borderRadius: 2,
+            backgroundColor: 'white'
+          }}
         >
-          {users.map((user) => (
-            <MenuItem key={user.id} value={user.username}>{user.username}</MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-      <Button onClick={onClick} type='submit' sx={{ my: 1, py: 2 }} fullWidth variant="contained">Add Task</Button>
-      <Dialog open={openSuccessDialog} onClose={handleCloseDialog}>
-        <DialogTitle>Task Added Successfully</DialogTitle>
-        <DialogContent>
-          <Typography variant="body1">Your task has been added successfully.</Typography>
-        </DialogContent>
-        <DialogActions>
-          <Button component={Link} to="/dashboard" color="primary" autoFocus>
-            OK
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </Box>
+          <FormControl fullWidth sx={{ my: 1 }}>
+            <InputLabel sx={{ color: '#000' }}>Title</InputLabel>
+            <OutlinedInput
+              onChange={handleOnChange}
+              name='title'
+              label="title"
+              sx={{ color: '#000' }}
+            />
+          </FormControl>
+          <FormControl fullWidth sx={{ my: 1 }}>
+            <InputLabel sx={{ color: '#000' }}>Description</InputLabel>
+            <OutlinedInput
+              onChange={handleOnChange}
+              name='description'
+              label="description"
+              sx={{ color: '#000' }}
+            />
+          </FormControl>
+          <FormControl fullWidth sx={{ my: 1 }}>
+            <InputLabel sx={{ color: '#000' }}>Assigned To</InputLabel>
+            <Select
+              value={selectedUser}
+              onChange={handleUserChange}
+              label="Assigned To"
+              sx={{ color: '#000' }}
+            >
+              {users.map((user) => (
+                <MenuItem key={user.id} value={user.username}>{user.username}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <Button onClick={onClick} type='submit' sx={{ my: 1, py: 2 }} fullWidth variant="contained">Add Task</Button>
+          <Dialog open={openSuccessDialog} onClose={handleCloseDialog}>
+            <DialogTitle>Task Added Successfully</DialogTitle>
+            <DialogContent>
+              <Typography variant="body1">Your task has been added successfully.</Typography>
+            </DialogContent>
+            <DialogActions>
+              <Button component={Link} to="/dashboard" color="primary" autoFocus>
+                OK
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </Box>
+      </Box>
+      <BottomNav />
+    </ThemeProvider>
   );
 };
 

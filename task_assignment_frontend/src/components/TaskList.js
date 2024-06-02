@@ -63,7 +63,7 @@ const TaskList = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <div style={{ padding: '20px' }}>
+      <div style={{ padding: '20px', height: '60vh', marginTop: '100px' }}>
         <Typography variant="h5" gutterBottom color="black">
           Total Tasks: {totalElements}
         </Typography>

@@ -63,7 +63,7 @@ function App() {
           </Toolbar>
         </AppBar>
         <div className='container'>
-          <div className='main'>
+          <div className='main' style={{ alignContent: 'center' }}>
             <Routes>
               <Route path="/" element={<LoginPage />} />
               <Route path="/signup" element={<SignupPage />} />
