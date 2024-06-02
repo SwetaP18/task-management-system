@@ -88,28 +88,6 @@ const Task = ({ task, getTask }) => {
 
     return (
         <Paper elevation={3} className='task-item'>
-            {/* Need to remove */}
-            {/* <ListItem>
-                <Grid container spacing={2} alignItems="center">
-                    <Grid item xs={12} sm={6} md={8}>
-                        <ListItemIcon>
-                            <Description />
-                        </ListItemIcon>
-                        <ListItemText>
-                            <Typography variant="h6">{task.title}</Typography>
-                            <Typography variant="body1" color="textSecondary">{task.description}</Typography>
-                            <Typography variant="body2" color="textSecondary">Assigned To: {task.assignedTo}</Typography>
-                        </ListItemText>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={4}>
-                        <Grid container justifyContent="flex-end" alignItems="center" spacing={1}>
-                            <Button onClick={handleDelete} color="error" startIcon={<Delete />} disabled={loading}>Delete</Button>
-                            <Button onClick={handleOpenDetailsModal} startIcon={<Visibility />} disabled={loading}>View</Button>
-                            <Button onClick={handleUpdate} color="primary" startIcon={<Update />} disabled={loading}>Update</Button>
-                        </Grid>
-                    </Grid>
-                </Grid>
-            </ListItem> */}
             <Card>
                 <CardContent>
                     <Grid container spacing={1} alignItems="center">

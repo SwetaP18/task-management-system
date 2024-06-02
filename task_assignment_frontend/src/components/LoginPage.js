@@ -22,10 +22,10 @@ const LoginPage = () => {
         } catch (error) {
             console.error('Error fetching tasks:', error);
             // Set error message received from backend
-            setError(error.response?.data?.message || 'An error occurred during login.');
+            setError(error.response?.data?.message || 'Unable to connect to the server, Please try after sometime!');
             setTimeout(() => {
                 setError(''); // Set error message
-            }, 2000)
+            }, 4000)
         }
     };
 
